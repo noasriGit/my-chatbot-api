@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     console.log('Sending to OpenAI:', messages);
 
     const completion = await openai.createChatCompletion({
-      model: 'gpt-4o',
+      model: 'gpt-3.5-turbo',
       messages,
     });
 

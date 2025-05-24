@@ -29,28 +29,25 @@ export default async function handler(req, res) {
   try {
     console.log('Sending to OpenAI:', messages);
 
-    // Detect if user is asking about 55+ communities
+    const completion = await openai.createChatCompletion({
+      model: 'gpt-4o',
+      messages,
+    });
+
+    let aiMessage = completion.data.choices[0].message;
+
+    // Check if user asked about 55+ communities
     const lastUserMessage = messages[messages.length - 1]?.content || '';
     const mention55Plus = /55\+|55 plus|55 and over|senior community|retirement/i.test(lastUserMessage);
 
-    let augmentedMessages = [...messages];
-
     if (mention55Plus) {
-      // Inject assistant message with IDX link before calling OpenAI
-      augmentedMessages.push({
-        role: 'assistant',
-        content: `You can explore all available 55+ community listings here: [View Listings](https://nova55homes.idxbroker.com/i/55nova)`,
-      });
+      // Append IDX link to the end of the assistant's message
+      aiMessage.content += `\n\n🔍 You can also view all available 55+ community listings here: [View Listings](https://nova55homes.idxbroker.com/i/55nova)`;
     }
 
-    const completion = await openai.createChatCompletion({
-      model: 'gpt-4o',
-      messages: augmentedMessages,
-    });
+    console.log('OpenAI response:', aiMessage);
 
-    console.log('OpenAI response:', completion.data);
-
-    res.status(200).json({ result: completion.data.choices[0].message });
+    res.status(200).json({ result: aiMessage });
   } catch (error) {
     console.error('Error during OpenAI call:', error.response?.data || error.message || error);
     res.status(500).json({ error: error.response?.data || error.message || 'Internal Server Error' });

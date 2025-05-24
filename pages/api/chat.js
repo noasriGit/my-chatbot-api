@@ -29,9 +29,23 @@ export default async function handler(req, res) {
   try {
     console.log('Sending to OpenAI:', messages);
 
+    // Detect if user is asking about 55+ communities
+    const lastUserMessage = messages[messages.length - 1]?.content || '';
+    const mention55Plus = /55\+|55 plus|55 and over|senior community|retirement/i.test(lastUserMessage);
+
+    let augmentedMessages = [...messages];
+
+    if (mention55Plus) {
+      // Inject assistant message with IDX link before calling OpenAI
+      augmentedMessages.push({
+        role: 'assistant',
+        content: `You can explore all available 55+ community listings here: [View Listings](https://nova55homes.idxbroker.com/i/55nova)`,
+      });
+    }
+
     const completion = await openai.createChatCompletion({
       model: 'gpt-4o',
-      messages,
+      messages: augmentedMessages,
     });
 
     console.log('OpenAI response:', completion.data);

@@ -8,7 +8,7 @@ const openai = new OpenAIApi(configuration);
 
 export default async function handler(req, res) {
   // Enable CORS
-  res.setHeader('Access-Control-Allow-Origin', 'https://55realty.vercel.app');
+  res.setHeader('Access-Control-Allow-Origin', 'https://www.nova55homes.com/');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 

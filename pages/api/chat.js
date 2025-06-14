@@ -138,12 +138,12 @@ export default async function handler(req, res) {
 **Name:** Roya Delaney  
 **Phone:** (240)-505-2544  
 **Email:** royasellshomes@gmail.com
-[Contact Now](https://nova55homes.idxbroker.com/idx/contact)`;
+[Contact Now] https://nova55homes.idxbroker.com/idx/contact`;
 
     // Optionally add 55+ listing link if the topic is general
     const mention55Plus = /55\+|55 plus|55 and over|senior community|retirement/i.test(userMessage);
     if (mention55Plus) {
-      aiMessage.content += `\n\n🏡 [Browse All 55+ Listings](https://nova55homes.idxbroker.com/i/55nova)`;
+      aiMessage.content += `\n\n🏡 [Browse All 55+ Listings] https://nova55homes.idxbroker.com/i/55nova`;
     }
 
     res.status(200).json({ result: aiMessage });

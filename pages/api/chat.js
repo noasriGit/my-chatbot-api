@@ -130,7 +130,7 @@ export default async function handler(req, res) {
     // Append community page link if detected
     const communityLink = getCommunityLink(userMessage);
     if (communityLink) {
-      aiMessage.content += `\n\n🔗 [View Community Page](${communityLink})`;
+      aiMessage.content += `\n\n🔗 [View Community Page]${communityLink}`;
     }
 
     // Always append contact info

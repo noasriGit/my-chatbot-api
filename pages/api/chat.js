@@ -135,10 +135,10 @@ export default async function handler(req, res) {
 
     // Always append contact info
     aiMessage.content += `\n\n📞 **Contact Our 55+ Specialist**  
-**Name:** Noah Masri  
-**Phone:** (703) 655-9585  
-**Email:** noahmasri@remax.net  
-[Schedule a Tour](https://www.nova55homes.com/contact)`;
+**Name:** Roya Delaney  
+**Phone:** (240)-505-2544  
+**Email:** royasellshomes@gmail.com
+[Contact Now](https://nova55homes.idxbroker.com/idx/contact)`;
 
     // Optionally add 55+ listing link if the topic is general
     const mention55Plus = /55\+|55 plus|55 and over|senior community|retirement/i.test(userMessage);
